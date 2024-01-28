@@ -1,0 +1,74 @@
+<?php
+$enProduccion = false; //cambiar luego a true, esto es para que no sea necesario recargar el codigo
+$raizDelSitio		= 'http://'.$_SERVER['SERVER_NAME'].'/web/urace/pregrado/estudiantes/i_agr/';
+$urlDelSitio		= 'http://www.poz.unexpo.edu.ve/web/urace/';
+
+$tProceso			= 'Agregado de Asignaturas';
+
+$lapsoProceso		= '2015-2';
+
+
+// * * * * * OJO OJO OJO OJO * * * * * 
+// Cambiar esto manualmente de acuerdo a la jornada.
+// Tipo de jornada
+//	0 : deshabilitado 
+//	1 : solo preinscritos en las materias preinscritas.
+//	2 : solo preinscritos, pero pueden cambiar las materias.
+//	3 : todos preinscritos o no preinscritos
+$tipoJornada = 3;
+$tablaOrdenInsc = 'ORDEN_INSCRIPCION3';
+
+$noOfertar = "'322939','322040',";// Mecanica
+$noOfertar.= "'311939','311040',";// Electrica
+$noOfertar.= "'333939','333040',";// Metalurgica
+$noOfertar.= "'355959','355069',";// Electronica
+$noOfertar.= "'344939','344040'" ;// Industrial
+
+$tLapso				= 'Lapso Intensivo '.$lapsoProceso;
+$laBitacora			= $_SERVER[DOCUMENT_ROOT].'/log/pregrado/estudiantes/intensivo/agregado_intensivo_'.$lapsoProceso.'.log';
+$inscHabilitada		= false;
+$sedesUNEXPO = array (	'BQTO' => array('BQTO', 'CARORA'), 
+						'CCS'  => array('DACECCS'),
+						'POZ'  => array('DACEPOZ')
+						//'POZ'  => array('CENTURA-DACE')
+				);
+
+//$sedeActiva = 'BQTO';
+//$sedeActiva = 'CCS';
+$sedeActiva = 'POZ';
+$pensumPoz = '5';
+
+$nucleos = $sedesUNEXPO[$sedeActiva];
+
+//$vicerrectorado		= "Luis Caballero Mej&iacute;as";
+//$vicerrectorado		= "Barquisimeto";
+$vicerrectorado		= "Puerto Ordaz";
+$nombreDependencia = 'Unidad Regional de Admisi&oacute;n y Control de Estudios';
+
+//Unidad Tributaria y Costo de las materias:
+$unidadTributaria	= 127.00;
+$valorPreMateria	= 30.00/*0.2*$unidadTributaria*/;
+$valorMateria		= 720.00+$valorPreMateria;
+$valorExonerar	= 720.00;
+$banco	= "Caron&iacute;";
+$cuenta	= "0128 0038 01 3821541103";
+
+// Maximo numero de depositos a presentar:
+$maxDepo			= 10;
+//Usuario maestro
+$masterID		  = 'master';
+// Proteccion de las paginas contra boton derecho, no javascript y navegadores no soportados:
+if ($enProduccion){
+	$botonDerecho = 'oncontextmenu="return false"';
+	$noJavaScript = '<noscript><meta http-equiv="REFRESH" content="0;URL=no-javascript.php"></noscript>';
+	$noCache	  = "<meta http-equiv=\"Pragma\" content=\"no-cache\">\n";
+	$noCache	 .= '<meta http-equiv="Expires" content="-1">';
+	$noCacheFin	  = '<head><meta http-equiv="Pragma" content="no-cache"></head>';
+}
+else {
+	$botonDerecho = '';
+	$noJavaScript = '';
+	$noCache	  = '';
+	$noCacheFin	  = '';
+}
+?>
